@@ -58,7 +58,7 @@ To speed up the training process of MdVRNet, we used the [DALI](https://develope
 ### Testing
 Once you have trained MdVRNet, you can test it executing
 ```
-python test_mdvrnet.py --model_file <MdVRNet_model>.pth --test_path <path_to_your_test_dir> --noise_sigma <value_of_sigma> --q <value_of_q> --estimate_parameter_model <DPEN_model>.pth
+python test_mdvrnet.py --model_file <MdVRNet_model>.pth --test_path <path_to_your_test_dir> --noise_sigma <sigma> --q <q> --estimate_parameter_model <DPEN_model>.pth
 ```
 
 ## Citations
