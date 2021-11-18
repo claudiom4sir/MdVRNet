@@ -45,20 +45,36 @@ TODO
 ```
 Once DPEN is trained, you can train MdVRNet on video sequences executing
 ```
-python train_mdvrnet.py --trainset_dir <> --log_dir <path_for_logs> --estimate_parameter_model <DPEN_model>.pth
+python train_mdvrnet.py --trainset_dir <trainset_dir> --log_dir <log_dir> --estimate_parameter_model <DPEN_model>.pth
 ```
 For more training options, execute
 ```
 python train_mdvrnet.py --help
 ```
 This will show you, for example, how to change the range of the artifacts, the number of epochs, the batch size, the patch size etc.
+
+The trainset directory is expected to follow this format
+```
+trainset_dir/
+  |-- seq1.mp4
+  |-- seq1.mp4
+  |-- ...
+```
+
 #### Note
 To speed up the training process of MdVRNet, we used the [DALI](https://developer.nvidia.com/dali) library, which requires input sequences to be in a video format (.mp4 to be precise). If your data are sequences of images, you can generate videos in .mp4 format using [FFmpeg](https://www.ffmpeg.org/). The DALI library is used only for training, while for testing you can use sequences of images.
 
 ### Testing
 Once you have trained MdVRNet, you can test it executing
 ```
-python test_mdvrnet.py --model_file <MdVRNet_model>.pth --test_path <path_to_your_test_dir> --noise_sigma <sigma> --q <q> --estimate_parameter_model <DPEN_model>.pth
+python test_mdvrnet.py --model_file <MdVRNet_model>.pth --test_path <test_dir> --noise_sigma <sigma> --q <q> --estimate_parameter_model <DPEN_model>.pth --save_path <out_dir>
+```
+The testset directory is expected to contain only a sequence and to follow this format
+```
+test_dir/
+  |-- im1.png
+  |-- im2.png
+  |-- ...
 ```
 
 ## Citations
