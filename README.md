@@ -44,11 +44,11 @@ First of all, you need to train DPEN on single images to recognize the intensity
 ```
 TODO
 ```
-Once DPEN is trained, you can train MdVRNet on video sequences executing:
+Once DPEN is trained, you can train MdVRNet on video sequences executing
 ```
 python train_mdvrnet.py --trainset_dir <> --log_dir <path_for_logs> --estimate_parameter_model <DPEN_model>.pth
 ```
-To see more training options, execute
+For more training options, execute
 ```
 python train_mdvrnet.py --help
 ```
