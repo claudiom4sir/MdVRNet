@@ -34,11 +34,10 @@ Python 3.6 + CUDA 11.2
 - tensorboardx==2.0
 - nvidia-dali==0.10.0
 
-You can install all the python dependencies executing this command:
+You can install all the python dependencies executing
 ```
 pip install -r requirements.txt
 ```
-
 ### Training
 First of all, you need to train DPEN on single images to recognize the intensity of the artifacts (sigma for AWGN and q for JPEG compression). To train it, execute
 ```
@@ -57,13 +56,13 @@ This will show you, for example, how to change the range of the artifacts, the n
 To speed up the training process of MdVRNet, we used the [DALI](https://developer.nvidia.com/dali) library, which requires input sequences to be in a video format (.mp4 to be precise). If your data are sequences of images, you can generate videos in .mp4 format using [FFmpeg](https://www.ffmpeg.org/). The DALI library is used only for training, while for testing you can use sequences of images.
 
 ### Testing
-Once you have trained MdVRNet, you can test it executing:
+Once you have trained MdVRNet, you can test it executing
 ```
 python test_mdvrnet.py --model_file <MdVRNet_model>.pth --test_path <path_to_your_test_dir> --noise_sigma <value_of_sigma> --q <value_of_q> --estimate_parameter_model <DPEN_model>.pth
 ```
 
 ## Citations
-If you think this project is useful for your research, please cite our paper:
+If you think this project is useful for your research, please cite our paper
 ```
 TODO
 ```
