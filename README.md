@@ -76,7 +76,7 @@ test_dir/
   |-- im2.png
   |-- ...
 ```
-
+The pretrained model (trained on DAVIS 2017) is available [here]().
 ## Citations
 If you think this project is useful for your research, please cite our paper
 ```
