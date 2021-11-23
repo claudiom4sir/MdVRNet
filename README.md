@@ -39,10 +39,34 @@ You can install all the python dependencies executing
 pip install -r requirements.txt
 ```
 ### Training
+#### DPEN
 First of all, you need to train DPEN on single images to recognize the intensity of the artifacts (sigma for AWGN and q for JPEG compression). To train it, execute
 ```
-TODO
+python train_dpen.py --trainset_dir <trainset_dir> --valset_dir <valset_dir>
 ```
+For more training options, execute
+```
+python train_dpen.py --help
+```
+The trainset directory is expected to follow this format
+```
+trainset_dir/
+  |-- seq1/
+    |-- im1.png
+    |-- img2.png
+    |-- ...
+  |-- seq2/
+    |-- im1.png
+    |-- img2.png
+    |-- ...
+  |-- ...
+```
+If you want to use the DAVIS 2017 trainset, which contains videos in .mp4 format, you can obtain the aforementioned folder structure by executing
+```
+python generate_png_from_mp4.py --input_dir <dir containing .mp4 files> --output_dir <output_dir>
+```
+Note that ```generate_png_from_mp4.py``` requires [FFmpeg](https://www.ffmpeg.org/)
+#### MdVRNet
 Once DPEN is trained, you can train MdVRNet on video sequences executing
 ```
 python train_mdvrnet.py --trainset_dir <trainset_dir> --log_dir <log_dir> --estimate_parameter_model <DPEN_model>.pth
