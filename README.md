@@ -76,7 +76,7 @@ test_dir/
   |-- im2.png
   |-- ...
 ```
-The pretrained model (trained on DAVIS 2017) is available [here]().
+The DPEN and MdVRNet pretrained models (trained on DAVIS 2017) are available [TODO]().
 ## Citations
 If you think this project is useful for your research, please cite our paper
 ```
