@@ -1,8 +1,8 @@
-# MdVRNet: Deep Video Restoration under Multiple Distortions
+# MdVRNet: Deep Video Restoration under Multiple Distortions (VISAPP 2022)
 
 
 ## Overview
-This code is the Pytorch implementation of the paper "MdVRNet: Deep Video Restoration under Multiple Distortions" (VISAPP 2022).
+This code is the Pytorch implementation of the paper "MdVRNet: Deep Video Restoration under Multiple Distortions" by Claudio Rota and Marco Buzzelli.
 
 ### Abstract
 Video restoration techniques aim to remove artifacts, such as noise, blur, and compression, introduced at various levels within and outside the camera imaging pipeline during video acquisition. 
