@@ -95,7 +95,7 @@ def test_fastdvdnet(**args):
 
 	print("Loading DPEN model...")
 	dpen_model = DPEN().cuda()
-	dpen_model.load_state_dict(torch.load(args["estimate_parameter_model"]))
+	dpen_model.load_state_dict(torch.load(args["DPEN_model"]))
 	dpen_model.eval()
 	dpen_patches = int(args['dpen_patches'])
 
@@ -111,7 +111,7 @@ def test_fastdvdnet(**args):
 
 		# Add noise
 		print('Adding noise')
-		noise = torch.empty_like(seq).normal_(mean=0, std=args['noise_sigma']).to(device)
+		noise = torch.empty_like(seq).normal_(mean=0, std=args['sigma']).to(device)
 		seqn = seqn + noise
 		seqn = torch.clamp(seqn, 0., 1.)
 
@@ -167,7 +167,7 @@ def test_fastdvdnet(**args):
 	if not args['dont_save_results']:
 		# Save sequence
 		save_out_seq(seqn, denframes, args['save_path'], \
-					   int(args['noise_sigma']*255), int(args['q']), args['suffix'], args['save_noisy'])
+					   int(args['sigma']*255), int(args['q']), args['suffix'], args['save_noisy'])
 
 	# close logger
 	close_logger(logger)
@@ -180,14 +180,14 @@ if __name__ == "__main__":
 						help='path to model of the pretrained denoiser')
 	parser.add_argument("--test_path", type=str, default="./data/rgb/Kodak24", \
 						help='path to sequence to denoise')
-	parser.add_argument("--estimate_parameter_model", type=str, default='./pretrained_models/DPEN_pretrained.pth', \
-						help="Pretrained model to estimate distortion parameters")
+	parser.add_argument("--DPEN_model", type=str, default='./pretrained_models/DPEN_pretrained.pth', \
+						help="Pretrained DPEN model to estimate distortion parameters")
 	parser.add_argument("--suffix", type=str, default="", help='suffix to add to output name')
 	parser.add_argument("--max_num_fr_per_seq", type=int, default=25, \
 						help='max number of frames to load per sequence')
 	parser.add_argument("--q", type=int, default=15, \
 						help="Q value for jpeg compression")
-	parser.add_argument("--noise_sigma", type=float, default=25, help='noise level used on test set')
+	parser.add_argument("--sigma", type=float, default=25, help='noise level used on test set')
 	parser.add_argument("--dpen_patches", type=float, default=64, help='patch dim for DPEN')
 	parser.add_argument("--dont_save_results", action='store_true', help="don't save output images")
 	parser.add_argument("--save_noisy", action='store_true', help="save noisy frames")
@@ -209,7 +209,7 @@ if __name__ == "__main__":
 	print('\n')
 
 	# Normalize noises ot [0, 1]
-	argspar.noise_sigma /= 255.
+	argspar.sigma /= 255.
 
 	seed = 0
 	torch.manual_seed(seed)

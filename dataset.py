@@ -66,8 +66,7 @@ class DPENDataset(Dataset):
 		for folder in os.listdir(path_data):
 			for im in os.listdir(path_data + "/" + folder):
 				image_paths.append(path_data + "/" + folder + "/" + im)
-		trainortest = 'train' if not self.is_test else 'test'
-		print("Loading %s images..." % trainortest)
+		print("Loading images...")
 		for im in image_paths:
 				im = cv2.imread(im)
 				im = (cv2.cvtColor(im, cv2.COLOR_BGR2RGB))

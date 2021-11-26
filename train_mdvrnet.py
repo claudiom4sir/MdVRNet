@@ -63,12 +63,11 @@ def main(**args):
 	model = MdVRNet()
 	model = nn.DataParallel(model, device_ids=device_ids).cuda()
 
-	if args['estimate_parameter_model']:
-		print("Loading DPEN model...")
-		estimate_parameter_model = DPEN().cuda()
-		estimate_parameter_model.load_state_dict(torch.load(args["estimate_parameter_model"]))
-		estimate_parameter_model.eval()
-		print("Estimating sigma with model at path %s" % args['estimate_parameter_model'])
+	print("Loading DPEN model...")
+	estimate_parameter_model = DPEN().cuda()
+	estimate_parameter_model.load_state_dict(torch.load(args["DPEN_model"]))
+	estimate_parameter_model.eval()
+	print("Estimating parameters with model at path %s" % args['DPEN_model'])
 
 	# Define loss
 	criterion_mse = nn.MSELoss(reduction='sum').cuda()
@@ -111,7 +110,7 @@ def main(**args):
 			N, C, H, W = img_train.size()
 
 			# std dev of each sequence
-			stdn = torch.empty((N, 1, 1, 1)).cuda().uniform_(args['noise'][0], to=args['noise'][1])
+			stdn = torch.empty((N, 1, 1, 1)).cuda().uniform_(args['sigma'][0], to=args['sigma'][1])
 			# draw noise samples from std dev tensor
 			noise = torch.zeros_like(img_train)
 			noise = torch.normal(mean=noise, std=stdn.expand_as(noise))
@@ -132,10 +131,9 @@ def main(**args):
 
 			noise_map = torch.zeros((N, 2, H, W))
 			# create the noise map if it has to be used
-			if args['estimate_parameter_model']:
-				with torch.no_grad():
-					stdn, q = estimate_parameter_model(imgn_train[:, 6:9, :, :])
-					stdn = stdn.reshape(N, 1, 1, 1)
+			with torch.no_grad():
+				stdn, q = estimate_parameter_model(imgn_train[:, 6:9, :, :])
+				stdn = stdn.reshape(N, 1, 1, 1)
 			# fill noise map with the std used to blur the corresponding sequence
 			for j, current_std in enumerate(stdn[:, 0, 0, 0]):
 				noise_map[j, 0].fill_(current_std)
@@ -185,7 +183,7 @@ def main(**args):
 			psnr_val = validate_and_log_noise_compression(
 						model_temp=model, \
 						dataset_val=dataset_val, \
-						valnoisestd=(args['noise'][0], args['noise'][1]), \
+						valnoisestd=(args['sigma'][0], args['sigma'][1]), \
 						valq=(args['q'][0], args['q'][1]), \
 						temp_psz=args['temp_patch_size'], \
 						writer=writer, \
@@ -228,14 +226,14 @@ if __name__ == "__main__":
 					 help="Initial learning rate")
 	parser.add_argument("--no_orthog", action='store_true',\
 						help="Don't perform orthogonalization as regularization")
-	parser.add_argument("--estimate_parameter_model", type=str, default='./pretrained_models/DPEN_pretrained.pth', \
-						help="Pretrained model to estimate distortion parameters")
+	parser.add_argument("--DPEN_model", type=str, default='./pretrained_models/DPEN_pretrained.pth', \
+						help="Pretrained DPEN model to estimate distortion parameters")
 	parser.add_argument("--save_every", type=int, default=10,\
 						help="Number of training steps to log psnr and perform \
 						orthogonalization")
 	parser.add_argument("--save_every_epochs", type=int, default=1,\
 						help="Number of training epochs to save state")
-	parser.add_argument("--noise", nargs=2, type=int, default=[5, 55], \
+	parser.add_argument("--sigma", nargs=2, type=int, default=[5, 55], \
 					 help="Noise training interval")
 	# Preprocessing parameters
 	parser.add_argument("--patch_size", "--p", type=int, default=64, help="Patch size")
@@ -259,7 +257,7 @@ if __name__ == "__main__":
 		print('\t{}: {}'.format(p, v))
 	print('\n')
 
-	argspar.noise[0] /= 255.
-	argspar.noise[1] /= 255.
+	argspar.sigma[0] /= 255.
+	argspar.sigma[1] /= 255.
 
 	main(**vars(argspar))

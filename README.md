@@ -93,7 +93,7 @@ The testset directory is expected to follow the same format as in training
 #### MdVRNet
 You can test a pretrained MdVRNet model (pretrained DPEN model is required) by executing
 ```
-python test_mdvrnet.py --model_file <MdVRNet_model>.pth --test_path <test_dir> --noise_sigma <sigma> --q <q> --DPEN_model <DPEN_model>.pth --save_path <out_dir>
+python test_mdvrnet.py --model_file <MdVRNet_model>.pth --test_path <test_dir> --sigma <sigma> --q <q> --DPEN_model <DPEN_model>.pth --save_path <out_dir>
 ```
 The testset directory is expected to contain only a sequence and to follow this format
 ```

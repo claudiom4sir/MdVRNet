@@ -24,9 +24,9 @@ def main(**args):
 		os.mkdir(args['log_dir'])
 	
 	# load datasets
-	trainset = DPENDataset(args['trainset_dir'], min_sigma=args['noise'][0], max_sigma=args['noise'][1], min_q=args['q'][0], max_q=args['q'][1], patch_size=args['patch_size'])
+	trainset = DPENDataset(args['trainset_dir'], min_sigma=args['sigma'][0], max_sigma=args['sigma'][1], min_q=args['q'][0], max_q=args['q'][1], patch_size=args['patch_size'])
 	train_dl = DataLoader(trainset, args['batch_size'], True)
-	valset = DPENDataset(args['valset_dir'], min_sigma=args['noise'][0], max_sigma=args['noise'][1], min_q=args['q'][0], max_q=args['q'][1], patch_size=args['patch_size'])
+	valset = DPENDataset(args['valset_dir'], min_sigma=args['sigma'][0], max_sigma=args['sigma'][1], min_q=args['q'][0], max_q=args['q'][1], patch_size=args['patch_size'])
 	val_dl = DataLoader(valset)
 
 	# create DPEN model and set training params
@@ -39,7 +39,7 @@ def main(**args):
 
 	# start training DPEN
 	best_loss = float("inf")
-	for epoch in range(1, args['epochs']):
+	for epoch in range(1, args['epochs'] + 1):
 
 		# train the model
 		model.train()
@@ -94,7 +94,7 @@ if __name__ == '__main__':
 					 help="Number of total training epochs")
 	parser.add_argument("--lr", type=float, default=1e-4, \
 					 help="Initial learning rate")
-	parser.add_argument("--noise", nargs=2, type=int, default=[5, 55], \
+	parser.add_argument("--sigma", nargs=2, type=int, default=[5, 55], \
 					 help="Noise training interval")
 	parser.add_argument("--patch_size", "--p", type=int, default=64, help="Patch size")
 	parser.add_argument("--q", type=int, nargs=2, default=[15, 35], \
