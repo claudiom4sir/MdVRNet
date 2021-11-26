@@ -44,7 +44,7 @@ You can install all the python dependencies by executing
 pip install -r requirements.txt
 ```
 ### Help
-All the scripts necessary for training and testing the models have an helper function that shows all the possible parameters you can specify in the script itself. To visualize such parameters, add ```--h``` when you call the scripts. In the following, only the basic commands are specified.
+All the scripts necessary for training and testing the models have a helper function that shows all the possible parameters you can specify in the scripts themselves. To visualize such parameters, add ```--h``` when you call the scripts. In the following instructions, only the basic commands are specified.
 ### Training
 #### DPEN
 First of all, you need to train DPEN on single images to recognize the intensity of the artifacts (sigma for AWGN and q for JPEG compression). To train it, execute
@@ -81,6 +81,7 @@ trainset_dir/
   |-- seq1.mp4
   |-- ...
 ```
+while the validationset, in the case you want to use it, is expected to follow the same format as in DPEN.
 
 **Note**: To speed up the training process of MdVRNet, we used the [DALI](https://developer.nvidia.com/dali) library, which requires input sequences to be in a video format (.mp4 to be precise). If your data are sequences of images, you can generate videos in .mp4 format using [FFmpeg](https://www.ffmpeg.org/). The DALI library is used only for training, while for testing you can use sequences of images.
 
