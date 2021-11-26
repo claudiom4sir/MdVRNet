@@ -11,6 +11,9 @@ In this paper, we present Multi-distorted Video Restoration Network (MdVRNet), a
 Our model includes an original Distortion Parameter Estimation sub-Network (DPEN) to automatically infer the intensity of various types of distortions affecting the input sequence, novel Multi-scale Restoration Blocks (MRB) to extract complementary features at different scales using two parallel streams, and implements a two-stage restoration process to focus on different levels of detail.
 We document the accuracy of the DPEN module in estimating the intensity of multiple distortions, and present an ablation study that quantifies the impact of the DPEN and MRB modules. Finally, we show the advantages of the proposed MdVRNet in a direct comparison with another existing state-of-the-art approach for video restoration.
 
+### Architecture
+![](https://github.com/claudiom4sir/MdVRNet/blob/main/mdvrnet.png)
+
 ## Datasets
 In the paper, we used the following datasets:
 - *DAVIS 2017*: 120 480p sequences
