@@ -53,19 +53,21 @@ class ValDataset(Dataset):
 
 class DPENDataset(Dataset):
 
-	def __init__(self, path_data, min_sigma=5, max_sigma=55, min_q=15, max_q=35, patch_size=64):
+	def __init__(self, path_data, min_sigma=5, max_sigma=55, min_q=15, max_q=35, patch_size=64, is_test=False):
 		self.path_data = path_data
 		self.min_sigma = min_sigma
 		self.max_q = max_q
 		self.min_q = min_q
 		self.max_sigma = max_sigma
 		self.patch_size = patch_size
+		self.is_test = is_test
 		image_paths = []
 		self.images = []
 		for folder in os.listdir(path_data):
 			for im in os.listdir(path_data + "/" + folder):
 				image_paths.append(path_data + "/" + folder + "/" + im)
-		print("Loading training images...")
+		trainortest = 'train' if not self.is_test else 'test'
+		print("Loading %s images..." % trainortest)
 		for im in image_paths:
 				im = cv2.imread(im)
 				im = (cv2.cvtColor(im, cv2.COLOR_BGR2RGB))
@@ -97,14 +99,16 @@ class DPENDataset(Dataset):
 			img = self.flip_image(img)
 		if mirror:
 			img = self.mirror_image(img)
-		return torch.from_numpy(np.float32(img / 255.)).permute(2, 0, 1)
+		return img
 
 	def __getitem__(self, index):
 		q = randint(self.min_q, self.max_q)
 		sigma = random.uniform(self.min_sigma, self.max_sigma)
 		sigma /= 255.
 		img = self.images[index]
-		img = self.augment_data(img)
+		if not self.is_test:
+			img = self.augment_data(img)
+		img = torch.from_numpy(np.float32(img / 255.)).permute(2, 0, 1)
 		noise = torch.empty_like(img).normal_(mean=0, std=sigma)
 		img += noise
 		img = torch.clamp(img, 0.,1.)
