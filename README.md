@@ -44,10 +44,6 @@ First of all, you need to train DPEN on single images to recognize the intensity
 ```
 python train_dpen.py --trainset_dir <trainset_dir> --valset_dir <valset_dir>
 ```
-For more training options, execute
-```
-python train_dpen.py --help
-```
 The trainset directory is expected to follow this format
 ```
 trainset_dir/
@@ -63,20 +59,14 @@ trainset_dir/
 ```
 If you want to use the DAVIS 2017 trainset, which contains videos in .mp4 format, you can obtain the aforementioned folder structure by executing
 ```
-python generate_png_from_mp4.py --input_dir <dir containing .mp4 files> --output_dir <output_dir>
+python generate_png_from_mp4.py --input_dir <dir_containing_.mp4_files> --output_dir <output_dir>
 ```
-Note that ```generate_png_from_mp4.py``` requires [FFmpeg](https://www.ffmpeg.org/)
+Note that ```generate_png_from_mp4.py``` requires [FFmpeg](https://www.ffmpeg.org/), make sure it is installed before running the script
 #### MdVRNet
 Once DPEN is trained, you can train MdVRNet on video sequences executing
 ```
-python train_mdvrnet.py --trainset_dir <trainset_dir> --log_dir <log_dir> --estimate_parameter_model <DPEN_model>.pth
+python train_mdvrnet.py --trainset_dir <trainset_dir> --log_dir <log_dir> --noise_sigma <min_sigma> <max_sigma> --q <min_q> <max_q> --estimate_parameter_model <DPEN_model>.pth
 ```
-For more training options, execute
-```
-python train_mdvrnet.py --help
-```
-This will show you, for example, how to change the range of the artifacts, the number of epochs, the batch size, the patch size etc.
-
 The trainset directory is expected to follow this format
 ```
 trainset_dir/
@@ -100,7 +90,7 @@ test_dir/
   |-- im2.png
   |-- ...
 ```
-The DPEN and MdVRNet pretrained models (trained on DAVIS 2017) are available [TODO]().
+The DPEN and MdVRNet pretrained models (trained on DAVIS 2017) are available [here](https://github.com/claudiom4sir/MdVRNet/tree/main/pretrained_models).
 ## Citations
 If you think this project is useful for your research, please cite our paper
 ```
