@@ -12,7 +12,9 @@ Our model includes an original Distortion Parameter Estimation sub-Network (DPEN
 We document the accuracy of the DPEN module in estimating the intensity of multiple distortions, and present an ablation study that quantifies the impact of the DPEN and MRB modules. Finally, we show the advantages of the proposed MdVRNet in a direct comparison with another existing state-of-the-art approach for video restoration.
 
 ### Architecture
-![](https://github.com/claudiom4sir/MdVRNet/blob/main/mdvrnet.png)
+![](https://github.com/claudiom4sir/MdVRNet/blob/main/images/mdvrnet.png)
+### Results
+![](https://github.com/claudiom4sir/MdVRNet/blob/main/images/results.png)
 
 ## Datasets
 In the paper, we used the following datasets:
