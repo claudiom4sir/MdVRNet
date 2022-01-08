@@ -44,67 +44,42 @@ You can install all the python dependencies by executing
 pip install -r requirements.txt
 ```
 ### Help
-All the scripts necessary for training and testing the models have a helper function that shows all the possible parameters you can specify in the scripts themselves. To visualize such parameters, add ```--h``` when you call the scripts. In the following instructions, only the basic commands are specified.
+All the scripts necessary for training and testing the models have a helper function that shows all the possible parameters you can specify in the scripts. To visualize such parameters, add ```--h``` when you call the scripts. In the following instructions, only the basic commands are specified.
 ### Training
 #### DPEN
 First of all, you need to train DPEN on single images to recognize the intensity of the artifacts (sigma for AWGN and q for JPEG compression). To train it, execute
 ```
 python train_dpen.py --trainset_dir <trainset_dir> --valset_dir <valset_dir> --sigma <min_sigma> <max_sigma> --q <min_q> <max_q>
 ```
-The trainset and validationset directories are expected to follow this format
-```
-root_dir/
-  |-- seq1/
-    |-- im1.png
-    |-- img2.png
-    |-- ...
-  |-- seq2/
-    |-- im1.png
-    |-- img2.png
-    |-- ...
-  |-- ...
-```
-If you want to use the DAVIS 2017 trainset, which contains videos in .mp4 format, you can obtain the aforementioned folder structure by executing
+The trainset and validationset directories are expected to follow the same format as the *DAVIS 2017* testset.
+If you want to use the *DAVIS 2017* trainset, which contains videos in .mp4 format, you can obtain the correct folder structure by executing
 ```
 python generate_png_from_mp4.py --input_dir <dir_containing_.mp4_files> --output_dir <output_dir>
 ```
-Note that ```generate_png_from_mp4.py``` requires [FFmpeg](https://www.ffmpeg.org/), make sure it is installed before running the script.
+Note that ```generate_png_from_mp4.py``` requires [FFmpeg](https://www.ffmpeg.org/), so make sure it is installed before running the script.
 #### MdVRNet
 Once DPEN is trained, you can train MdVRNet on video sequences by executing
 ```
 python train_mdvrnet.py --trainset_dir <trainset_dir> --log_dir <log_dir> --sigma <min_sigma> <max_sigma> --q <min_q> <max_q> --DPEN_model <DPEN_model>.pth
 ```
-The trainset directory is expected to follow this format
-```
-trainset_dir/
-  |-- seq1.mp4
-  |-- seq1.mp4
-  |-- ...
-```
-while the validationset, in the case you want to use it, is expected to follow the same format as in DPEN.
+The trainset directory is expected to follow the same format as the *DAVIS 2017* trainset, while the validationset, in the case you want to use it, is expected to follow the same format as the *DAVIS 2017* testset.
 
-**Note**: To speed up the training process of MdVRNet, we used the [DALI](https://developer.nvidia.com/dali) library, which requires input sequences to be in a video format (.mp4 to be precise). If your data are sequences of images, you can generate videos in .mp4 format using [FFmpeg](https://www.ffmpeg.org/). The DALI library is used only for training, while for testing you can use sequences of images.
+**Note**: To speed up the training process of MdVRNet, we used the [DALI](https://developer.nvidia.com/dali) library, which requires input sequences to be in a video format (.mp4 to be precise). If your data are sequences of images, you can generate videos in .mp4 format using [FFmpeg](https://www.ffmpeg.org/). The DALI library is used only for training, while for testing you can use sequences represented by image files, such as png or jpg.
 
 ### Testing
-The DPEN and MdVRNet pretrained models (trained on DAVIS 2017) are available [here](https://github.com/claudiom4sir/MdVRNet/tree/main/pretrained_models).
+The DPEN and MdVRNet pretrained models (trained on the *DAVIS 2017* trainset) are available [here](https://github.com/claudiom4sir/MdVRNet/tree/main/pretrained_models).
 #### DPEN
 You can test a pretrained DPEN model by executing
 ```
 python test_dpen.py --DPEN_model <DPEN_model>.pth --valset_dir <valset_dir> --sigma <sigma> --q <q>
 ```
-The testset directory is expected to follow the same format as in training
+The testset directory is expected to follow the same format as in training.
 #### MdVRNet
 You can test a pretrained MdVRNet model (pretrained DPEN model is required) by executing
 ```
 python test_mdvrnet.py --model_file <MdVRNet_model>.pth --test_path <test_dir> --sigma <sigma> --q <q> --DPEN_model <DPEN_model>.pth --save_path <out_dir>
 ```
-The testset directory is expected to contain only a sequence and to follow this format
-```
-test_dir/
-  |-- im1.png
-  |-- im2.png
-  |-- ...
-```
+The testset directory is expected to contain only a video sequence represented by image files, such as png or jpg.
 
 ## Citations
 If you think this project is useful for your research, please cite our paper
@@ -113,7 +88,7 @@ TODO
 ```
 
 ## Acknowledgements
-The code is based on the excellent work done by [Tassano et al.](https://github.com/m-tassano/fastdvdnet).
+The code is based on the excellent work done by [Tassano et al.](https://github.com/m-tassano/fastdvdnet)
 
 ## Contacts
 For any question, please write an email to c.rota30@campus.unimib.it
