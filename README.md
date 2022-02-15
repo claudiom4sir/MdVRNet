@@ -84,7 +84,17 @@ The testset directory is expected to contain only a video sequence represented b
 ## Citations
 If you think this project is useful for your research, please cite our paper
 ```
-TODO
+@conference{visapp22,
+    author={Claudio Rota. and Marco Buzzelli.},
+    title={MdVRNet: Deep Video Restoration under Multiple Distortions},
+    booktitle={Proceedings of the 17th International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications - Volume 4: VISAPP,},
+    year={2022},
+    pages={419-426},
+    publisher={SciTePress},
+    organization={INSTICC},
+    doi={10.5220/0010828900003124},
+    isbn={978-989-758-555-5},
+}
 ```
 
 ## Acknowledgements
