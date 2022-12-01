@@ -21,9 +21,9 @@ In the paper, we used the following datasets:
 - *DAVIS 2017*: 120 480p sequences
 - *Set8*: 4 sequences from the *Derf 480p* testset ("tractor", "touchdown", "park_joy", "sunflower") plus other 4 540p sequences
 ### Trainset
-We trained MdVRNet using the [*DAVIS 2017* trainset](https://www.dropbox.com/sh/20n4cscqkqsfgoj/AACfjXp3q6tW-S56l_noKzO3a/training?dl=0&subfolder_nav_tracking=1).
+We trained MdVRNet using the [*DAVIS 2017* trainset](https://drive.google.com/file/d/196P_mV3iEgckfwC5L80SpH2SIaLJ6_DH/view?usp=share_link).
 ### Testsets
-We evaluated MdVRNet using the [*DAVIS 2017* testset](https://drive.google.com/file/d/1seZVrqSlbx89fd43FOQUk0YVli64hEe1/view?usp=sharing) and the [*Set8* dataset](https://www.dropbox.com/sh/20n4cscqkqsfgoj/AABGftyJuJDwuCLGczL-fKvBa/test_sequences?dl=0&subfolder_nav_tracking=1). 
+We evaluated MdVRNet using the [*DAVIS 2017* testset](https://drive.google.com/file/d/1seZVrqSlbx89fd43FOQUk0YVli64hEe1/view?usp=share_link) and the [*Set8* dataset](https://drive.google.com/file/d/1-IytevOg9GszBrtIobESuuygYsNVxbNF/view?usp=share_link). 
 
 ## User guide
 
