@@ -1,7 +1,5 @@
 # MdVRNet: Deep Video Restoration under Multiple Distortions (VISAPP 2022)
 
-[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=claudiom4sir.MdVRNet)](https://github.com/claudiom4sir/MdVRNet)
-
 ## Overview
 This code is the Pytorch implementation of the paper "MdVRNet: Deep Video Restoration under Multiple Distortions" by Claudio Rota and Marco Buzzelli.
 
