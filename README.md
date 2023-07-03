@@ -81,7 +81,7 @@ python test_mdvrnet.py --model_file <MdVRNet_model>.pth --test_path <test_dir> -
 The testset directory is expected to contain only a video sequence represented by image files, such as png or jpg.
 
 ## Citations
-If you think this project is useful for your research, please cite our paper
+If you think this project is useful for your research, please star this repo and cite our paper
 ```
 @conference{visapp22,
     author={Claudio Rota. and Marco Buzzelli.},
